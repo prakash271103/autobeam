@@ -171,6 +171,7 @@ def generate_dxf():
             print("astmin", astmin)
             astmax = .04 * b * provided_depth
             print("Maximum Ast:", astmax)
+            ast=max(ast,astmin)
             if (astmax < astmin or astmax < ast):
                 return("Revise Section,Tensile Reinforcement Exceeds 4%")
                 sys.exit()
@@ -957,6 +958,7 @@ def generate_dxf():
             print("astmin", astmin)
             astmax = .04 * b * provided_depth
             print("Maximum Ast:", astmax)
+            ast=max(ast,astmin)
             if (astmax > astmin or astmax > ast):
                 return("Revise Section")
                 sys.exit()
