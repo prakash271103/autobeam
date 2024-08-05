@@ -218,7 +218,7 @@ form label {
 }
 
 form input[type="number"], form select {
-    width: 150px; /* Set a specific width for smaller input boxes */
+    width: 200px; /* Set a specific width for smaller input boxes */
     padding: 1em;
     margin-bottom: .1em;
     border: 1px solid #ccc;
