@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('images/wall.jpg');
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+}
+form {
+    max-width: 600px;
+    margin: auto;
+    background-image: url('images/crane.jpeg');
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+
+}
+form:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+label {
+    font-weight: bold;
+    color: #333;
+}
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #ff7e5f;
+    box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+    outline: none;
+}
+input[type="text"]:hover,
+input[type="number"]:hover,
+select:hover {
+    border-color: #ff7e5f;
+    box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+}
+.button-container {
+    text-align: center;
+}
+input[type="submit"] {
+    background-color: #ff7e5f;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+input[type="submit"]:hover {
+    background-color: #feb47b;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.background-element {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    opacity: 0.2;
+    animation: move 10s linear infinite;
+}
+.background-element:nth-child(2) {
+    left: 25%;
+    animation-duration: 15s;
+}
+.background-element:nth-child(3) {
+    left: 50%;
+    animation-duration: 20s;
+}
+.background-element:nth-child(4) {
+    left: 75%;
+    animation-duration: 25s;
+}
+.background-element.crane {
+    background: url('images/crane.jpeg') no-repeat center center;
+    background-size: contain;
+}
+.background-element.building {
+    background: url('images/building.png') no-repeat center center;
+    background-size: contain;
+}
+.background-element.tools {
+    background: url('images/building.png') no-repeat center center;
+    background-size: contain;
+}
+@keyframes move {
+    0% {
+        top: -50px;
+    }
+    100% {
+        top: 100%;
+    }
+}

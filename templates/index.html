@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Design And Detailing Of Beams</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <div class="background-element crane"></div>
+    <div class="background-element building"></div>
+    <div class="background-element tools"></div>
+    <h1>Design and detailing of RCC Beams</h1>
+    <form action="/generate_dxf" method="post">
+        <label for="type">Enter the type of Beam:</label>
+        <select id="type" name="type" required>
+            <option value="Simply Supported">Simply Supported</option>
+            <option value="Cantilever">Cantilever</option>
+        </select><br><br>
+
+        <label for="beam_length">Enter the length of the beam (m):</label>
+        <input type="number" step="0.01" id="beam_length" name="beam_length" required><br><br>
+
+        <label for="exposure">Enter the Exposure Condition:</label>
+        <select id="exposure" name="exposure" required>
+            <option value="Mild">Mild</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Severe">Severe</option>
+            <option value="Very severe">Very severe</option>
+            <option value="Extreme">Extreme</option>
+        </select><br><br>
+
+        <label for="wall_thickness">Enter the Support Width of the beam (mm):</label>
+        <input type="number" step="0.01" id="wall_thickness" name="wall_thickness" required><br><br>
+
+        <label for="fck">Enter the Grade of Concrete:</label>
+        <select id="fck" name="fck" required>
+            <option value="20">20 Mpa</option>
+            <option value="25">25 Mpa</option>
+            <option value="30">30 Mpa</option>
+            <option value="35">35 Mpa</option>
+            <option value="40">40 Mpa</option>
+            <option value="45">45 Mpa</option>
+            <option value="50">50 Mpa</option>
+        </select><br><br>
+
+        <label for="fy">Enter the Grade of Steel:</label>
+        <select id="fy" name="fy" required>
+            <option value="250">Fe 250</option>
+            <option value="415">Fe 415</option>
+            <option value="500">Fe 500</option>
+        </select><br><br>
+
+        <label for="udl">Enter the Uniform Distributed load (kN/m):</label>
+        <input type="number" step="0.1" id="udl" name="udl" required><br><br>
+
+        <div class="button-container">
+            <input type="submit" value="Design">
+        </div>
+    </form>
+</body>
+</html>
