@@ -243,3 +243,18 @@ form input[type="submit"]:hover {
     position: absolute;
     z-index: -1;
 }
+.copyright{
+  width: 100%;
+  text-align: center;
+  padding: 25px 0;
+  background: #1410e6;
+  font-weight: 300;
+  margin-top: 20px;
+  text-line-through-color: #0c0c0d;
+}
+.copyright p{
+  color: #0f0f0f;
+  text-align: center;
+  background: #ffffff;
+
+}
