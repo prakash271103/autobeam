@@ -31,7 +31,9 @@ def generate_dxf():
         fy = int(request.form['fy'])
         # ------------------step-1-------------geometery
         effective_length = clear_span + cd / 2000
-
+        if (beam_length>10):
+            return("For cantilever over 10m ,this tool is not valid")
+            sys.exit()
         def get_nominal_cover(exposure_condition):
             covers = {
                 "Mild": 20,
