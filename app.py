@@ -140,7 +140,13 @@ def generate_dxf():
 
             #plt.tight_layout()
             #plt.show()
-
+        #slenderness check
+        s1=25*wall_thickness
+        s2=100*wall_thickness*wall_thickness/effective_depth
+        slender=min(s1,s2)
+        if(clear_span>slender/1000):
+            return("The clear distance from the free end of the cantilever to the lateral restraiant shall not exceeds 25 b or (100 b^2)/d which ever is less")
+            sys.exit()
         # Interactive execution is needed to uncomment and use the following lines:
         point_loads = []
         udl = int(request.form['udl'])
@@ -1759,8 +1765,7 @@ def generate_dxf():
             print("top", no_of_bars_top)
 
     # --------------------------------------------------------------------------------------------------------------simply--------------------------
-    elif (
-            beam_type == "Simply Supported"):  # ----------------------------------------------simply supported-----------------------
+    elif (beam_type == "Simply Supported"):  # ----------------------------------------------simply supported-----------------------
         beam_length = float(request.form['beam_length'])
         clear_span = beam_length
         exposure_condition = request.form['exposure']
@@ -1855,14 +1860,17 @@ def generate_dxf():
         b = wall_thickness
         o_d = round(overall_depth, -2)
         print("Overall depth:", o_d)
-        print("effective_depth: ", effective_depth
-
-              )
+        print("effective_depth: ", effective_depth)
         print("Assumed width of beam:", b)
         L = clear_span + wall_thickness / 1000  # Length of the beam (meters)
         # (Magnitude of the point load (Newtons), Position (meters from one end))
         q = live_load + wall_thickness * overall_depth * 25 / 1000000  # Magnitude of the uniform distributed load (Newtons per meter)
-
+        s1 = 60 * wall_thickness
+        s2 = 250 * wall_thickness * wall_thickness / effective_depth
+        slender = min(s1, s2)
+        if (clear_span > slender / 1000):
+            return ("The clear distance between the lateral restraiant shall not exceeds 60 b or (250 b^2)/d which ever is less")
+            sys.exit()
         # print(q)
         # Adjust calculation for support reactions
         def calculate_reactions(L, point_loads, q):
