@@ -145,7 +145,7 @@ def generate_dxf():
         s2=100*wall_thickness*wall_thickness/effective_depth
         slender=min(s1,s2)
         if(clear_span>slender/1000):
-            return("The clear distance from the free end of the cantilever to the lateral restraiant shall not exceeds 25 b or (100 b^2)/d which ever is less")
+            return("The clear distance from the free end of the cantilever to the lateral restraiant shall not exceeds 25 b or (100 b^2)/d which ever is less. IS:456 Clause 23.3")
             sys.exit()
         # Interactive execution is needed to uncomment and use the following lines:
         point_loads = []
@@ -1869,7 +1869,7 @@ def generate_dxf():
         s2 = 250 * wall_thickness * wall_thickness / effective_depth
         slender = min(s1, s2)
         if (clear_span > slender / 1000):
-            return ("The clear distance between the lateral restraiant shall not exceeds 60 b or (250 b^2)/d which ever is less")
+            return ("The clear distance between the lateral restraiant shall not exceeds 60 b or (250 b^2)/d which ever is less IS:456 Clause 23.3")
             sys.exit()
         # print(q)
         # Adjust calculation for support reactions
