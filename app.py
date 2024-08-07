@@ -846,12 +846,12 @@ def generate_dxf():
 
             # cross section dimension
             dim3 = msp.add_linear_dim(
-                base=(700 * clear_span, -5.5 * overall_depth),  # location of the dimension line
+                base=(900 * clear_span, -5.5 * overall_depth),  # location of the dimension line
                 p1=(1000 * clear_span, -5 * overall_depth),  # 1st measurement point
                 p2=(1000 * clear_span - wall_thickness, -5 * overall_depth),  # 2nd measurement point
                 dimstyle="EZDXF",  # default dimension style
             )
-            msp.add_linear_dim(base=(700 * clear_span, -3.5 * overall_depth),
+            msp.add_linear_dim(base=(900 * clear_span, -3.5 * overall_depth),
                                p1=(1000 * clear_span - wall_thickness, -5 * overall_depth),
                                p2=(1000 * clear_span - wall_thickness, -4 * overall_depth),
                                angle=90).render()  # cross section
@@ -1686,12 +1686,12 @@ def generate_dxf():
 
             # cross section dimension
             dim3 = msp.add_linear_dim(
-                base=(700 * clear_span, -5.5 * overall_depth),  # location of the dimension line
+                base=(900 * clear_span, -5.5 * overall_depth),  # location of the dimension line
                 p1=(1000 * clear_span, -5 * overall_depth),  # 1st measurement point
                 p2=(1000 * clear_span - wall_thickness, -5 * overall_depth),  # 2nd measurement point
                 dimstyle="EZDXF",  # default dimension style
             )
-            msp.add_linear_dim(base=(700 * clear_span, -3.5 * overall_depth),
+            msp.add_linear_dim(base=(900 * clear_span, -3.5 * overall_depth),
                                p1=(1000 * clear_span - wall_thickness, -5 * overall_depth),
                                p2=(1000 * clear_span - wall_thickness, -4 * overall_depth),
                                angle=90).render()  # cross section
@@ -2979,12 +2979,12 @@ def generate_dxf():
 
         # cross section dimension
         dim3 = msp.add_linear_dim(
-            base=(700 * clear_span, -5.5 * overall_depth),  # location of the dimension line
+            base=(900 * clear_span, -5.5 * overall_depth),  # location of the dimension line
             p1=(1000 * clear_span, -5 * overall_depth),  # 1st measurement point
             p2=(1000 * clear_span - wall_thickness, -5 * overall_depth),  # 2nd measurement point
             dimstyle="EZDXF",  # default dimension style
         )
-        msp.add_linear_dim(base=(700 * clear_span, -3.5 * overall_depth),
+        msp.add_linear_dim(base=(900* clear_span, -3.5 * overall_depth),
                            p1=(1000 * clear_span - wall_thickness, -5 * overall_depth),
                            p2=(1000 * clear_span - wall_thickness, -4 * overall_depth),
                            angle=90).render()  # cross section
@@ -3092,6 +3092,246 @@ def generate_dxf():
             create_dots_cc(dot_centers1, dot_radius1, bottom)
         else:
             print("bars cannot be arranged")
+        temp1 = overall_depth / 3
+        if (overall_depth >= 7.5):
+            if (temp1 > no_of_bars_side):
+                if (no_of_bars_side == 2):
+                    sx = -wall_thickness + nominal_cover
+                    sy = (overall_depth * 2 / 3 - nominal_cover)
+                    sx1 = clear_span * 1000 + wall_thickness - nominal_cover
+                    sx3 = -wall_thickness + nominal_cover
+                    sy3 = nominal_cover + overall_depth / 3
+                    sx4 = clear_span * 1000 + wall_thickness - nominal_cover
+                    msp.add_line((sx, sy), (sx1, sy))  # top side bar
+                    msp.add_line((sx3, sy3), (sx4, sy3))  # bottom side bar
+
+                elif (no_of_bars_side == 3):
+                    print(no_of_bars_side)
+                    sx = -wall_thickness + nominal_cover
+                    sy = (overall_depth * .5 + nominal_cover)
+                    sx1 = clear_span * 1000 + wall_thickness - nominal_cover
+                    sx3 = -wall_thickness + nominal_cover
+                    sy3 = nominal_cover + overall_depth * .25
+                    sx4 = clear_span * 1000 + wall_thickness - nominal_cover
+                    sy5 = nominal_cover + overall_depth * .75
+                    sx5 = clear_span * 1000 + wall_thickness - nominal_cover
+                    msp.add_line((sx, sy), (sx1, sy))  # top side bar
+                    msp.add_line((sx3, sy3), (sx4, sy3))
+                    msp.add_line((sx3, sy5), (sx5, sy5))  # bottom side bar
+
+                def create_dots_bb(dot_centers, dot_radius, top):
+                    # Create solid dots at specified centers with given radius
+                    for center in dot_centers:
+                        # Create a HATCH entity with a solid fill
+                        hatch = msp.add_hatch()
+                        # Add a circular path to the hatch as its boundary
+                        edge_path = hatch.paths.add_edge_path()
+                        edge_path.add_arc(center=center, radius=dot_radius, start_angle=0, end_angle=360)
+                        # Set the hatch pattern to solid
+                        hatch.set_solid_fill()
+                        if (top == 1):
+                            msp.add_diameter_dim(
+                                center=center,
+                                radius=dot_radius,
+                                # text=None,
+                                dimstyle="EZ_RADIUS",
+                                angle=135,  # Adjust the angle as needed
+                                override={'dimtad': 0, 'dimasz': .2, 'dimexo': 5000, "dimtoh": 1, "dimlfac": 100},
+                                # 16MM # Moves dimension line outside if it overlaps with the circle
+                                dxfattribs={'layer': 'dimensions'}
+                            ).render()
+                        else:
+                            msp.add_diameter_dim(
+                                center=center,
+                                radius=dot_radius,
+                                dimstyle="EZ_RADIUS",
+                                angle=135,  # Adjust the angle as needed
+                                override={'dimtad': 0, 'dimasz': .2, 'dimexo': 5000, "dimtoh": 1, "dimlfac": 100},
+                                # 12MM  # Moves dimension line outside if it overlaps with the circle
+                                dxfattribs={'layer': 'dimensions'}
+                            ).render()
+
+                if (no_of_bars_side == 3):  # --------------------------------------------left
+                    x1 = (0 + nominal_cover + side_bar / 200)
+                    y1 = -4.75 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.5 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.25 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 2):
+                    x1 = (0 + nominal_cover + side_bar / 200)
+                    y1 = -4.66 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.33 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y2), (x1, y1)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 4):
+                    x1 = (0 + nominal_cover + side_bar / 200)
+                    y1 = -4.8 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.6 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.4 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.2 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x2, y2), (x3, y3),
+                                    (x4, y4)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                else:
+                    print("bars cannot be arranged")
+                if (no_of_bars_side == 3):  # --------------------------------------------right
+                    x1 = (wall_thickness - nominal_cover - side_bar / 200)
+                    y1 = -4.75 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.5 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.25 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 2):
+                    x1 = (wall_thickness - nominal_cover - side_bar / 200)
+                    y1 = -4.66 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.33 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y2), (x1, y1)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 4):
+                    x1 = (wall_thickness - nominal_cover - side_bar / 200)
+                    y1 = -4.8 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.6 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.4 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.2 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3),
+                                    (x1, y4)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                else:
+                    print("bars cannot be arranged")
+                    # ---------------for section bb
+                if (no_of_bars_side == 3):  # --------------------------------------------left-bb
+                    x1 = (500 * clear_span - wall_thickness + nominal_cover + top_bar / 200)
+                    y1 = -4.75 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.5 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.25 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 2):
+                    x1 = (500 * clear_span - wall_thickness + nominal_cover + top_bar / 200)
+                    y1 = -4.66 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.33 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y2), (x1, y1)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 4):
+                    x1 = (500 * clear_span - wall_thickness + nominal_cover + top_bar / 200)
+                    y1 = -4.8 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.6 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.4 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.2 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x2, y2), (x3, y3),
+                                    (x4, y4)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                else:
+                    print("bars cannot be arranged")
+                if (no_of_bars_side == 3):  # --------------------------------------------right -bb
+                    x1 = (500 * clear_span - nominal_cover - side_bar / 200)
+                    y1 = -4.75 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.5 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.25 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 2):
+                    x1 = (500 * clear_span - nominal_cover - side_bar / 200)
+                    y1 = -4.66 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.33 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y2), (x1, y1)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 4):
+                    x1 = (500 * clear_span - nominal_cover - side_bar / 200)
+                    y1 = -4.8 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.6 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.4 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.2 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3),
+                                    (x1, y4)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                else:
+                    print("bars cannot be arranged")
+                if (no_of_bars_side == 3):  # --------------------------------------------left-bb
+                    x1 = (1000 * clear_span - wall_thickness + nominal_cover + top_bar / 200)
+                    y1 = -4.75 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.5 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.25 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 2):
+                    x1 = (1000 * clear_span - wall_thickness + nominal_cover + top_bar / 200)
+                    y1 = -4.66 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.33 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y2), (x1, y1)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 4):
+                    x1 = (1000 * clear_span - wall_thickness + nominal_cover + top_bar / 200)
+                    y1 = -4.8 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.6 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.4 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.2 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x2, y2), (x3, y3),
+                                    (x4, y4)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                else:
+                    print("bars cannot be arranged")
+                if (no_of_bars_side == 3):  # --------------------------------------------right -cc
+                    x1 = (1000 * clear_span - nominal_cover - main_bar / 200)
+                    y1 = -4.75 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.5 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.25 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 2):
+                    x1 = (1000 * clear_span - nominal_cover - main_bar / 200)
+                    y1 = -4.66 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.33 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y2), (x1, y1)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                elif (no_of_bars_side == 4):
+                    x1 = (1000 * clear_span - nominal_cover - main_bar / 200)
+                    y1 = -4.8 * overall_depth - nominal_cover + side_bar / 200
+                    y2 = -4.6 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.4 * overall_depth - nominal_cover + side_bar / 200
+                    y3 = -4.2 * overall_depth - nominal_cover + side_bar / 200
+                    dot_centers1 = [(x1, y1), (x1, y2), (x1, y3),
+                                    (x1, y4)]  # Replace with the actual centers of the dots
+                    dot_radius1 = side_bar / 200
+                    bottom = 10
+                    create_dots(dot_centers1, dot_radius1, bottom)
+                else:
+                    print("bars cannot be arranged")
         dim.render()
         file = "SimplySupported.dxf"
         doc.saveas(file)
