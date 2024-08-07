@@ -149,7 +149,7 @@ def generate_dxf():
             sys.exit()
         # Interactive execution is needed to uncomment and use the following lines:
         point_loads = []
-        udl = int(request.form['udl'])
+        udl = float(request.form['udl'])
         beam_length = revised_effective_length / 1000
         x, sf, bm, max_sf, max_bm = calculate_sf_bm(point_loads, udl, beam_length)
         #plot_sf_bm(x, sf, bm, max_sf, max_bm)
