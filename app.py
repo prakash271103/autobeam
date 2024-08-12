@@ -2438,86 +2438,9 @@ def generate_dxf():
             fs = 0.58 * fy
             mf = 1 / (0.225 + 0.003228 * fs - 0.625 * math.log10(bd))
             allowablespan = 20 * mf
-            b1 = b  # width of the beam
-            d1 = o_d  # overall_depth
-            fck1 = fck
-            span1 = clear_span
-            m1 = max(mu, ml)
-            creep = 1.6
-            live_load1 = live_load
-            perudl = live_load1 / 2
-            cover1 = effective_cover
-            effective_depth1 = effective_depth
-            pc1 = 100 * no_of_bars_top * 0.78539816339744830961566084581988 * top_bar ** 2 / (b * effective_depth)
-            astc = pc1 * b1 * d1 / 100
-            pt1 = 100 * no_of_bars_bottom * 0.78539816339744830961566084581988 * main_bar ** 2 / (b * effective_depth)
-            astt = pt1 * b1 * d1 / 100
-            fcr = .7 * fck1 ** 0.5
-            ig = (b1 * (d1 ** 3)) / 12
-            mr = fcr * ig * 2 / d1 / 1000000
-            ec = 5000 * fck1 ** .5
-            short_m = 200000 / ec
-            term1 = -(astc * (short_m - 1) + short_m * astt)
-            term2 = (short_m - 1) ** 2 * astc ** 2 + short_m ** 2 * astt ** 2 + 2 * short_m * (
-                    short_m - 1) * astc * astt
-            term3 = 2 * b1 * ((short_m - 1) * astc * effective_cover + short_m * astt * effective_depth)
-            sqrt_term = math.sqrt(term2 + term3)
-            short_term_deflection = (term1 + sqrt_term) / b1
-            t1 = b1 * (short_term_deflection ** 3) / 3
-            t2 = short_m * astt * (effective_depth - short_term_deflection) ** 2
-            t3 = (short_m - 1) * astc * (short_term_deflection - effective_cover) ** 2
-            lr = t1 + t2 + t3
-            lreff = lr / (1.2 - mr / m1 * (1 - short_term_deflection / d1 / 3) * (1 - short_term_deflection / d1))
-            luse = max(lr, lreff)
-            # longterm
-            if (pt1 - pc1 < 1):
-                k4 = .72 * (pt1 - pc1) / math.sqrt(pt1)
-            else:
-                k4 = .65 * (pt1 - pc1) / math.sqrt(pt1)
 
-            ecc = ec / (creep + 1)
-            mc = 200000 / ecc
-            terml1 = -(astc * (mc - 1) + mc * astt)
-            terml2 = (mc - 1) ** 2 * astc ** 2 + mc ** 2 * astt ** 2 + 2 * mc * (mc - 1) * astc * astt
-            terml3 = 2 * b1 * ((mc - 1) * astc * effective_cover + mc * astt * effective_depth)
-            sqrt_term1 = math.sqrt(terml2 + terml3)
-            long_term_deflection = (terml1 + sqrt_term1) / b1
-            tl1 = b1 * (long_term_deflection ** 3) / 3
-            tl2 = mc * astt * (effective_depth - long_term_deflection) ** 2
-            tl3 = (mc - 1) * astc * (long_term_deflection - effective_cover) ** 2
-            lrc = tl1 + tl2 + tl3
-            lceff = lrc / (1.2 - mc / m1 * (1 - long_term_deflection / d1 / 3) * (1 - long_term_deflection / d1))
-            if lceff < lrc:
-                leffuse = lrc if lrc < ig else ig
-            else:
-                leffuse = lceff if lceff < ig else ig
-            aicc = 5 / 384 * perudl * (clear_span ** 4) * 1000000000000 / (ecc) / leffuse
-            print("aicc",aicc)
-            ai = 5 / 384 * perudl * (clear_span ** 4) * 1000000000000 / (ec) / luse
-            print("ai",ai)
-            short_term_delta = 5 / 384 * live_load1 * (clear_span ** 4) * 1000000000000 / (ec) / luse
-            shrinkage = 0.0003 * k4 / d1 * .125 * clear_span * clear_span * 1000000
-            print("k4",k4)
-            print("sd",short_term_delta)
-            creep_x = abs(aicc - ai)
-            long_term_delta = creep_x + shrinkage
-            total_deflection = long_term_delta + short_term_delta
-            delta_allowable = clear_span * 1000 / 250
-            span_ltd = clear_span * 1000 / (creep_x + shrinkage)
-            print("creep",creep_x)
-            print("shrinkage",shrinkage)
-            span_net = clear_span * 1000 / (total_deflection)
-            if (long_term_delta > 20):
-                return("Revise Section,Long Term Deflection Exceeds 20mm")
-                sys.exit()
-            elif (span_ltd < 350):
-                print(span_ltd)
-                return("Revise Section,span/Long Term Deflection is less than 350")
-                sys.exit()
-            elif (span_net < 250):
-                print(span_net)
-                return("Revise Section,span/Net Total Term Deflection is less than 250")
-                sys.exit()
+
+
             print("modification factor: ", mf)
             if (allowablespan > Actualspan):
                 print(" The section is safe under deflection")
@@ -2686,78 +2609,9 @@ def generate_dxf():
             allowablespan = 20 * mf * multiplyingfactor
             print("multiplying factor : ", multiplyingfactor)
             print("modification factor: ", mf)
-            b1 = b  # width of the beam
-            d1 = o_d  # overall_depth
-            fck1 = fck
-            span1 = clear_span
-            m1 = max(mu, ml)
-            creep = 1.6
-            live_load1 = live_load
-            perudl = live_load1 / 2
-            cover1 = effective_cover
-            effective_depth1 = effective_depth
-            pc1 = 100 * no_of_bars_top * 0.78539816339744830961566084581988 * top_bar ** 2 / (b * effective_depth)
-            astc = pc1 * b1 * d1 / 100
-            pt1 = 100 * no_of_bars_bottom * 0.78539816339744830961566084581988 * main_bar ** 2 / (b * effective_depth)
-            astt = pt1 * b1 * d1 / 100
-            fcr = .7 * fck1 ** 0.5
-            ig = (b1 * (d1 ** 3)) / 12
-            mr = fcr * ig * 2 / d1 / 1000000
-            ec = 5000 * fck1 ** .5
-            short_m = 200000 / ec
-            term1 = -(astc * (short_m - 1) + short_m * astt)
-            term2 = (short_m - 1) ** 2 * astc ** 2 + short_m ** 2 * astt ** 2 + 2 * short_m * (
-                    short_m - 1) * astc * astt
-            term3 = 2 * b1 * ((short_m - 1) * astc * effective_cover + short_m * astt * effective_depth)
-            sqrt_term = math.sqrt(term2 + term3)
-            short_term_deflection = (term1 + sqrt_term) / b1
-            t1 = b1 * (short_term_deflection ** 3) / 3
-            t2 = short_m * astt * (effective_depth - short_term_deflection) ** 2
-            t3 = (short_m - 1) * astc * (short_term_deflection - effective_cover) ** 2
-            lr = t1 + t2 + t3
-            lreff = lr / (1.2 - mr / m1 * (1 - short_term_deflection / d1 / 3) * (1 - short_term_deflection / d1))
-            luse = max(lr, lreff)
-            # longterm
-            if (pt1 - pc1 < 1):
-                k4 = .72 * (pt1 - pc1) / math.sqrt(pt1)
-            else:
-                k4 = .65 * (pt1 - pc1) / math.sqrt(pt1)
 
-            ecc = ec / (creep + 1)
-            mc = 200000 / ecc
-            terml1 = -(astc * (mc - 1) + mc * astt)
-            terml2 = (mc - 1) ** 2 * astc ** 2 + mc ** 2 * astt ** 2 + 2 * mc * (mc - 1) * astc * astt
-            terml3 = 2 * b1 * ((mc - 1) * astc * effective_cover + mc * astt * effective_depth)
-            sqrt_term1 = math.sqrt(terml2 + terml3)
-            long_term_deflection = (terml1 + sqrt_term1) / b1
-            tl1 = b1 * (long_term_deflection ** 3) / 3
-            tl2 = mc * astt * (effective_depth - long_term_deflection) ** 2
-            tl3 = (mc - 1) * astc * (long_term_deflection - effective_cover) ** 2
-            lrc = tl1 + tl2 + tl3
-            lceff = lrc / (1.2 - mc / m1 * (1 - long_term_deflection / d1 / 3) * (1 - long_term_deflection / d1))
-            if lceff < lrc:
-                leffuse = lrc if lrc < ig else ig
-            else:
-                leffuse = lceff if lceff < ig else ig
-            aicc = 5 / 384 * perudl * (clear_span ** 4) * 1000000000000 / (ecc) / leffuse
-            ai = 5 / 384 * perudl * (clear_span ** 4) * 1000000000000 / (ec) / luse
-            short_term_delta = 5 / 384 * live_load1 * (clear_span ** 4) * 1000000000000 / (ec) / luse
-            shrinkage = 0.0003 * k4 / d1 * .125 * clear_span * clear_span * 1000000
-            creep_x = aicc - ai
-            long_term_delta = creep_x + shrinkage
-            total_deflection = long_term_delta + short_term_delta
-            delta_allowable = clear_span * 1000 / 250
-            span_ltd = clear_span * 1000 / (creep_x + shrinkage)
-            span_net = clear_span * 1000 / (total_deflection)
-            if (long_term_delta > 20):
-                return("Revise Section,Long Term Deflection Exceeds 20mm")
-                sys.exit()
-            elif (span_ltd < 350):
-                return("Revise Section,span/Long Term Deflection is less than 350")
-                sys.exit()
-            elif (span_net < 250):
-                return("Revise Section,span/Net Total Term Deflection is less than 250")
-                sys.exit()
+
+
             # print("modification factor: ", mf)
             if (allowablespan > Actualspan):
                 print(" The section is safe under deflection")
