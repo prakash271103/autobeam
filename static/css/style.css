@@ -170,7 +170,15 @@ header h1 {
     max-width: 400px;
     margin-right: 1em;
 }
-
+p1 {
+    background-color: #007bff; /* Light blue background */
+    border-radius: 10px; /* Smooth edges */
+    padding: 10px; /* Space inside the element */
+    color: #ffffff; /* Dark blue text color */
+    display: inline-block; /* Fit the content */
+    text-align: center;
+    margin-left: 300px;
+}
 .project-description {
     flex: 2;
     max-width: 800px;
