@@ -1,0 +1,247 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('images/wall.jpg');
+    background-size: cover; /* Ensure the background image covers the whole body */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Heading styling */
+h1 {
+    text-align: center;
+    color: #0f0f0f;
+    padding: 30px;
+    font-size: 2em; /* Make the heading slightly larger */
+    border: 2px solid #0f0f0f; /* Add border around the heading */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #ffffff; /* Background color inside the border */
+    display: block; /* Center the block-level element */
+    width: fit-content;
+    margin: 0 auto; /* Center the heading horizontally */
+}
+
+/* Form styling */
+form {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.9); /* Slightly white background with opacity */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover effect for the form */
+form:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+/* Label styling */
+label {
+    font-weight: bold;
+    color: #333;
+    display: block; /* Ensure labels are on their own line */
+    margin: 10px 0 5px;
+}
+
+/* Input and select styling */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100px; /* Set a specific width for smaller input boxes */
+    padding: 5px; /* Reduced padding for smaller input boxes */
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px; /* Slightly smaller font size */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Focus and hover states for inputs and selects */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #ff7e5f;
+    box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+    outline: none;
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover,
+select:hover {
+    border-color: #ff7e5f;
+    box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+}
+
+/* Button styling */
+.button-container {
+    text-align: center;
+}
+
+input[type="submit"] {
+    background-color: #ff7e5f;
+    border: none;
+    color: white;
+    padding: 10px 15px; /* Reduced padding for smaller button */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px; /* Slightly smaller font size */
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #feb47b;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* Animation for background elements */
+@keyframes move {
+    0% {
+        top: -100px; /* Start from above the view */
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2em auto;
+    max-width: 1200px;
+    padding: 1em;
+}
+
+.form-section {
+    flex: 1;
+    max-width: 400px;
+    margin-right: 1em;
+}
+p1 {
+    background-color: #007bff; /* Light blue background */
+    border-radius: 10px; /* Smooth edges */
+    padding: 10px; /* Space inside the element */
+    color: #ffffff; /* Dark blue text color */
+    display: inline-block; /* Fit the content */
+    text-align: center;
+    margin-left: 300px;
+}
+.project-description {
+    flex: 2;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 1em;
+}
+
+.project-description h2 {
+    color: #333;
+}
+
+.project-description ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.project-description ul li {
+    margin: 1em 0;
+    padding: 0.5em;
+    border-left: 5px solid #007bff;
+    background: #f9f9f9;
+}
+
+.project-description ul li strong {
+    display: block;
+    color: #333;
+}
+
+.project-description p {
+    color: #666;
+}
+
+form {
+    background: #fff;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+form label {
+    display: block;
+    margin: 0.5em 0 0.2em;
+}
+
+form input[type="number"], form select {
+    width: 200px; /* Set a specific width for smaller input boxes */
+    padding: 1em;
+    margin-bottom: .1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #0f0f0f;
+}
+
+form input[type="submit"] {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.7em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background: #0056b3;
+}
+
+.background-element {
+    position: absolute;
+    z-index: -1;
+}
+.copyright{
+  width: 100%;
+  text-align: center;
+  padding: 25px 0;
+  background: #1410e6;
+  font-weight: 300;
+  margin-top: 20px;
+  text-line-through-color: #0c0c0d;
+}
+.copyright p{
+  color: #0f0f0f;
+  text-align: center;
+  background: #ffffff;
+
+}

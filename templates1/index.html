@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design and Detailing of Beams</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/jpg" href="/static/css/images/icons8-helmet-90.png">
+</head>
+<body>
+    <div class="background-element crane"></div>
+    <div class="background-element building"></div>
+    <div class="background-element tools"></div>
+    <div class="head">
+        <h1 class="heading">Design and Detailing of RCC Beams</h1>
+    </div>
+    <div class="container">
+        <div class="form-section">
+            <form action="/generate_dxf" method="post">
+                <label for="type">Enter the type of Beam:</label>
+                <select id="type" name="type" required>
+                    <option value="Simply Supported">Simply Supported</option>
+                    <option value="Cantilever">Cantilever</option>
+                    <option value="Fixed">Fixed</option>
+                </select><br><br>
+
+                <label for="beam_length">Enter the length of the beam (m):</label>
+                <input type="number" step="0.01" id="beam_length" name="beam_length" required><br><br>
+
+                <label for="exposure">Enter the Exposure Condition:</label>
+                <select id="exposure" name="exposure" required>
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Severe">Severe</option>
+                    <option value="Very severe">Very severe</option>
+                    <option value="Extreme">Extreme</option>
+                </select><br><br>
+
+                <label for="wall_thickness">Enter the Support Width of the beam (mm):</label>
+                <input type="number" step="1" id="wall_thickness" name="wall_thickness" required><br><br>
+
+                <label for="fck">Enter the Grade of Concrete:</label>
+                <select id="fck" name="fck" required>
+                    <option value="20">20 Mpa</option>
+                    <option value="25">25 Mpa</option>
+                    <option value="30">30 Mpa</option>
+                    <option value="35">35 Mpa</option>
+                    <option value="40">40 Mpa</option>
+                    <option value="45">45 Mpa</option>
+                    <option value="50">50 Mpa</option>
+                </select><br><br>
+
+                <label for="fy">Enter the Grade of Steel:</label>
+                <select id="fy" name="fy" required>
+                    <option value="250">Fe 250</option>
+                    <option value="415">Fe 415</option>
+                    <option value="500">Fe 500</option>
+                </select><br><br>
+
+                <label for="udl">Enter the Uniform Distributed load (kN/m):</label>
+                <input type="number" step="0.1" id="udl" name="udl" required><br><br>
+
+                <div class="button-container">
+                    <input type="submit" value="Design">
+                </div>
+            </form>
+        </div>
+        <section class="project-description">
+            <p>Our Beam Automation Project is a sophisticated tool designed to streamline the creation of detailed DXF drawings for various types of beams, including simply supported and cantilever beams. This application automates complex calculations and drawing processes, ensuring precision and efficiency.</p>
+            <p>Based On :IS 456,SP 16,SP 24,IS 13920</p>
+            <h2>Key Features:</h2>
+            <ul>
+                <li><strong>Automated Calculations:</strong> Performs intricate calculations for shear forces, bending moments, and more.</li>
+                <li><strong>Customizable Drawings:</strong> Generates DXF files with customizable dimensions and annotations, including section details and reinforcement layouts.</li>
+                <li><strong>Interactive Interface:</strong> Easy-to-use web interface for inputting beam parameters and downloading the generated drawings.</li>
+                <li><strong>High Precision:</strong> Ensures accurate placement of elements like text, lines, and circles within the drawings.</li>
+                <li><strong>Scalable Solution:</strong> Capable of handling various beam types and configurations, making it a versatile tool for civil engineers and designers.</li>
+            </ul>
+            <p>Explore our Beam Automation Project to experience a seamless and efficient way of creating professional-grade beam drawings.</p>
+            <p1>Sample Output</p1>
+            <img src="/static/css/images/sample_cs.png" alt="Sample Beam Drawing" style="max-width:100%; height:auto;">        
+        </section>
+    </div>
+    <div class="copyright">
+                <p>copyright &copy; Prakash. Made with love <i class="fas fa-heart"></i></p>
+    </div>
+</body>
+</html>
